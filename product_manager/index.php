@@ -51,7 +51,7 @@ if ($action == 'list_products') {
         add_product($category_id, $code, $name, $price);
         header("Location: .?category_id=$category_id");
     }
-}
+}    
 if ($action == 'list_categories') {
     $category_id = filter_input(INPUT_GET, 'category_id', 
             FILTER_VALIDATE_INT);
@@ -62,5 +62,8 @@ if ($action == 'list_categories') {
     $categories = get_categories();
     $products = get_products_by_category($category_id);
     include('category_list.php');
+} else if ($action == 'show_add_cat_form') {
+    $categories = get_categories();
+    include('category_add.php');    
 }
 ?>
