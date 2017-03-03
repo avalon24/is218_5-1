@@ -60,10 +60,30 @@ if ($action == 'list_categories') {
     }
     $category_name = get_category_name($category_id);
     $categories = get_categories();
-    $products = get_products_by_category($category_id);
     include('category_list.php');
+} else if ($action == 'delete_category') {
+    $category_id = filter_input(INPUT_POST, 'category_id', 
+            FILTER_VALIDATE_INT);
+    if ($category_id == NULL || $category_id == FALSE) {
+        $error = "Missing or incorrect category id.";
+        include('../errors/error.php');
+    } else { 
+        delete_category($category_id);
+        header("Location: .?action=list_categories");
+    }
 } else if ($action == 'show_add_cat_form') {
     $categories = get_categories();
     include('category_add.php');    
+} else if ($action == 'add_category') {
+    $category_id = filter_input(INPUT_POST, 'category_id', 
+            FILTER_VALIDATE_INT);
+    $name = filter_input(INPUT_POST, 'name');
+    if ($category_id == NULL || $category_id == FALSE || $name == NULL) {
+        $error = "Invalid category data. Check the fields and try again.";
+        include('../errors/error.php');
+    } else { 
+        add_product($category_id, $name);
+        header("Location: .?action=list_categories");
+    }
 }
 ?>
