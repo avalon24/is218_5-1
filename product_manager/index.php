@@ -72,17 +72,15 @@ if ($action == 'list_categories') {
         header("Location: .?action=list_categories");
     }
 } else if ($action == 'show_add_cat_form') {
-    $categories = get_categories();
     include('category_add.php');    
 } else if ($action == 'add_category') {
-    $category_id = filter_input(INPUT_POST, 'category_id', 
-            FILTER_VALIDATE_INT);
     $name = filter_input(INPUT_POST, 'name');
-    if ($category_id == NULL || $category_id == FALSE || $name == NULL) {
+    if ($name == NULL) {
+        echo "cat_id: $category_id    name: $name";
         $error = "Invalid category data. Check the fields and try again.";
         include('../errors/error.php');
     } else { 
-        add_product($category_id, $name);
+        add_product($name);
         header("Location: .?action=list_categories");
     }
 }
