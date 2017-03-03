@@ -31,14 +31,13 @@ function delete_category($category_id) {
     $statement->closeCursor();
 }
 
-function add_category($category_id, $name) {
+function add_category($name) {
     global $db;
     $query = 'INSERT INTO categories_guitar1
-                 (categoryID, categoryName)
+                 (categoryName)
               VALUES
-                 (:category_id, :name)';
+                 (:name)';
     $statement = $db->prepare($query);
-    $statement->bindValue(':category_id', $category_id);
     $statement->bindValue(':name', $name);
     $statement->execute();
     $statement->closeCursor();
